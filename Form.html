@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Validation Form</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    #validation_form {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+        width: 350px;
+        animation: fadeIn 0.8s ease-in-out;
+    }
+
+    #Validation_form_heading {
+        text-align: center;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .input_boxes {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border: none;
+        border-bottom: 2px solid #764ba2;
+        outline: none;
+        font-size: 16px;
+        transition: border-color 0.3s;
+        background: transparent;
+    }
+
+    .input_boxes:focus {
+        border-color: #667eea;
+    }
+
+    #boxes_container {
+        font-size: 16px;
+        margin: 15px 0;
+        color: #333;
+    }
+
+    label {
+        margin-right: 10px;
+    }
+
+    #Validate_btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+    }
+
+    #Validate_btn:hover {
+        transform: translateY(-2px);
+        background: linear-gradient(90deg, #5a67d8, #6b46c1);
+    }
+
+    .error {
+        color: red;
+        font-size: 14px;
+        margin-top: -8px;
+        margin-bottom: 10px;
+        display: none;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+</head>
+<body>
+    <form id="validation_form">
+        <h1 id="Validation_form_heading">Validation Form</h1>
+        <input type="text" id="username" class="input_boxes" placeholder="Username">
+        <div id="username_error" class="error">Username is required</div>
+
+        <input type="password" id="password" class="input_boxes" placeholder="Password">
+        <div id="password_error" class="error">Password must be at least 6 characters</div>
+
+        <input type="number" id="age" class="input_boxes" placeholder="Age">
+        <div id="age_error" class="error">Age must be between 18 and 100</div>
+
+        <div id="boxes_container">
+            <label>Gender:</label>
+            <input type="radio" name="Gender" value="Male"><label>Male</label>
+            <input type="radio" name="Gender" value="Female"><label>Female</label>
+            <input type="radio" name="Gender" value="Others"><label>Others</label>
+        </div>
+        <div id="gender_error" class="error">Please select a gender</div>
+
+        <input type="checkbox" id="terms"><label id="checkbox_label"> I agree to Terms and Conditions</label>
+        <div id="terms_error" class="error">You must accept the Terms</div>
+
+        <input type="submit" value="Validate" id="Validate_btn">
+    </form>
+
+    <script>
+        document.getElementById("validation_form").addEventListener("submit", function(e) {
+            e.preventDefault();
+
+            let isValid = true;
+
+            let username = document.getElementById("username").value.trim();
+            let password = document.getElementById("password").value;
+            let age = document.getElementById("age").value;
+            let genderSelected = document.querySelector('input[name="Gender"]:checked');
+            let termsChecked = document.getElementById("terms").checked;
+
+            // Reset error messages
+            document.querySelectorAll(".error").forEach(el => el.style.display = "none");
+
+            if (username === "") {
+                document.getElementById("username_error").style.display = "block";
+                isValid = false;
+            }
+
+            if (password.length < 6) {
+                document.getElementById("password_error").style.display = "block";
+                isValid = false;
+            }
+
+            if (age === "" || age < 18 || age > 100) {
+                document.getElementById("age_error").style.display = "block";
+                isValid = false;
+            }
+
+            if (!genderSelected) {
+                document.getElementById("gender_error").style.display = "block";
+                isValid = false;
+            }
+
+            if (!termsChecked) {
+                document.getElementById("terms_error").style.display = "block";
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert("✅ Form validated successfully!");
+            }
+        });
+    </script>
+</body>
+</html>
