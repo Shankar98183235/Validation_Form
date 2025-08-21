@@ -9,7 +9,7 @@ document.getElementById("validation_form").addEventListener("submit", function(e
     let genderSelected = document.querySelector('input[name="Gender"]:checked');
     let termsChecked = document.getElementById("terms").checked;
 
-    // Reset error messages
+
     document.querySelectorAll(".error").forEach(el => el.style.display = "none");
 
     if (username.length < 5 || username.length > 8) {
