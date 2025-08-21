@@ -38,6 +38,6 @@ document.getElementById("validation_form").addEventListener("submit", function(e
     }
 
     if (isValid) {
-        alert("✅ Form validated successfully!");
+        alert("Form validated successfully!");
     }
 });
